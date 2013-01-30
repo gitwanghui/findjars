@@ -1,0 +1,7 @@
+#Usage
+#findjars 1024
+#findjars 1024 -class your.class.name
+
+#JAVA_OPTS='-server -Xdebug -Xnoagent -Djava.compiler=NONE -Xrunjdwp:transport=dt_socket,address=8888,server=y,suspend=n'
+JAVA_HOME=/opt/jdk1.6.0_32
+$JAVA_HOME/bin/java -Xbootclasspath/a:$JAVA_HOME/lib/tools.jar $JAVA_OPTS -jar findjars-agent-1.0.jar "$@"
