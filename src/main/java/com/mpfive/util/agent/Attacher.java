@@ -23,6 +23,7 @@ import com.sun.tools.attach.VirtualMachine;
 public class Attacher {
 
     private static int PORT = -1;
+    private static VirtualMachine vm = null;
     
     /**
      * @param args
@@ -47,14 +48,13 @@ public class Attacher {
         }
         String jar = Attacher.class.getProtectionDomain().getCodeSource().getLocation().getPath();
         try {
-            VirtualMachine vm = VirtualMachine.attach(pid);
+            vm = VirtualMachine.attach(pid);
             startServer(clazz);
             synchronized(Attacher.class) {
                 if(PORT == -1) {
                     Attacher.class.wait();
                 }
                 vm.loadAgent(jar, String.valueOf(PORT));
-                vm.detach();
             }
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -67,6 +67,16 @@ public class Attacher {
         } catch (AgentInitializationException e) {
             e.printStackTrace();
         }
+        Runtime.getRuntime().addShutdownHook(new Thread(){
+            @Override
+            public void run() {
+                try {
+                    vm.detach();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
     private static void startServer(final String clazz) {
