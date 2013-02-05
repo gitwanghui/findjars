@@ -1,7 +1,7 @@
 findjars
 ========
 <p>本程序的功能是查找应用加载的所有jar包</p>
-<p>测试中，尚不能保证准确性和完整性（Ext和Bootstrap类加载加载的类/jar都没有列出来）</p>
+<p>测试中，尚不能保证准确性和完整性（Ext和Bootstrap类加载器加载的类/jar都没有列出来）</p>
 <pre>
 wanghui@ALIBABA-55971:~/workspace/findjars$ $JAVA_HOME/bin/java -Xbootclasspath/a:$JAVA_HOME/lib/tools.jar -jar /home/wanghui/workspace/findjars/dist/findjars-agent-1.0.jar 32016
 file:/home/wanghui/web-deploy/lporder.war/WEB-INF/lib/biz.order-1.1.5.jar
